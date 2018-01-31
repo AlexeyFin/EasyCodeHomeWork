@@ -111,3 +111,40 @@ console.log(getValue(arr2, getMultiply));
 console.log(getValue(arr3, getInfo));
 console.log(getValue(arr4, getReverse));
 console.log(getValue(arr5, getSumWithFive));
+
+
+//Доп задание, метод "every"
+
+
+function customEvery(array, handler) {
+
+    for (let i = 0; i < array.length; i++) {
+
+        if (!handler(array[i])) return false
+    }
+    return true;
+}
+
+
+
+let checkEvery = customEvery([1, 2, 3, '4'], function (elem) {
+    return typeof elem === 'number'
+});
+
+console.log(checkEvery);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
