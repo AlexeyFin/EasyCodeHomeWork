@@ -106,11 +106,11 @@ function  getSumWithFive(num) {
 
 
 
-console.log(getValue(arr1, getCamelCase));
-console.log(getValue(arr2, getMultiply));
-console.log(getValue(arr3, getInfo));
-console.log(getValue(arr4, getReverse));
-console.log(getValue(arr5, getSumWithFive));
+// console.log(getValue(arr1, getCamelCase));
+// console.log(getValue(arr2, getMultiply));
+// console.log(getValue(arr3, getInfo));
+// console.log(getValue(arr4, getReverse));
+// console.log(getValue(arr5, getSumWithFive));
 
 
 //Доп задание, метод "every"
@@ -131,12 +131,14 @@ let checkEvery = customEvery([1, 2, 3, '4'], function (elem) {
     return typeof elem === 'number'
 });
 
-console.log(checkEvery);
+//console.log(checkEvery);
 
 
 
 
-
+for ( i = 0; i < 100; i++){
+   if (!(i%2)) { console.log(i);}
+}
 
 
 
