@@ -1,0 +1,9 @@
+.card-block {
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.input-group{
+    width: 30%;
+}
