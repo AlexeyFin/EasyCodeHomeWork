@@ -1,7 +1,5 @@
-// Models
 
 let items = JSON.parse(localStorage.getItem('items')) || [];
-
 let table = document.getElementById('itmsList');
 let formForAdd = document.forms.addNew;
 let itemName = formForAdd.itemName;
@@ -11,7 +9,6 @@ let alertDiv = document.getElementById('alertDiv');
 let upDownSortBtn = document.getElementById('upDownSort');
 let minPrice = document.getElementById('minPrice');
 let maxPrice = document.getElementById('maxPrice');
-let tableItems = table.getElementsByTagName('tr');
 
 
 function createItem(item) {
@@ -46,12 +43,11 @@ function createItem(item) {
     setDefaultMaxPrice()
 
 }
-
 function generateList(items) {
 
     clearList();
 
-    for (let i = 0; i < items.length; i++){
+    for (let i = 0; i < items.length; i++) {
         let item = items[i];
         let template = `
         <tr data-id=${item.id}>
@@ -75,13 +71,10 @@ function generateList(items) {
 
     }
     setDefaultMaxPrice()
-
 }
-
 function clearList() {
     table.innerHTML = '';
 }
-
 function generateId() {
     let words = '1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
     let id = '';
@@ -93,8 +86,6 @@ function generateId() {
     }
     return id
 }
-
-
 function setDefaultMaxPrice() {
 
 
@@ -107,8 +98,6 @@ function setDefaultMaxPrice() {
 
    return maximum
 }
-
-
 function sortItems(items) {
     table.classList.toggle('reverse');
 
@@ -123,7 +112,6 @@ function sortItems(items) {
     }
 
 }
-
 function deleteItem(trash) {
     let parent = trash.closest('tr');
     let id = parent.dataset['id'];
@@ -167,7 +155,6 @@ function editListItem (id, name, price) {
     setDefaultMaxPrice();
 
 }
-
 function showAlert(settings) {
     alertDiv.classList.toggle('d-none');
     alertDiv.classList.add(settings.cssClass);
@@ -180,7 +167,6 @@ function showAlert(settings) {
 
 
 }
-
 //adding one item to table
 formForAdd.addEventListener('submit', function (e) {
     e.preventDefault();
@@ -205,14 +191,33 @@ formForAdd.addEventListener('submit', function (e) {
 
 });
 
-//sorting
+//sorting Сортировка по цене осуществляется при клике на значек в шапке таблицы в столбце "Цена"
+// сортировка от... и до... при крике на кнопку "Сортировка"
 
 upDownSortBtn.addEventListener('click', function (e) {
 
    sortItems(items);
 
 });
+sortBtn.addEventListener('click',function (e) {
 
+    let min = +minPrice.value || 0;
+    let max = +maxPrice.value || setDefaultMaxPrice();
+    let newItemsList = [];
+
+    for (let i = 0; i < items.length; i++){
+        if (items[i].price < min || items[i].price > max) continue;
+
+        newItemsList.unshift(items[i])
+    }
+
+    generateList(newItemsList);
+
+    console.log(newItemsList)
+
+
+
+});
 
 //Delete and change item
 table.addEventListener('click', function (e) {
@@ -252,25 +257,7 @@ table.addEventListener('click', function (e) {
 });
 
 
-sortBtn.addEventListener('click',function (e) {
 
-    let min = +minPrice.value || 0;
-    let max = +maxPrice.value || setDefaultMaxPrice();
-    let newItemsList = [];
-
-    for (let i = 0; i < items.length; i++){
-        if (items[i].price < min || items[i].price > max) continue;
-
-        newItemsList.unshift(items[i])
-    }
-
-    generateList(newItemsList);
-
-    console.log(newItemsList)
-
-
-
-});
 
 generateList(items);
 
