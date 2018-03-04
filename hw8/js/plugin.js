@@ -87,7 +87,7 @@ const timer = (function () {
         const day = end.getDay();
         const week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-        endTime.textContent = `Be back in ${week[day]} at ${hour}:${minutes < 10 ? '0' : ''}${minutes}`
+        endTime.textContent = `Be back on ${week[day]} at ${hour}:${minutes < 10 ? '0' : ''}${minutes}`
     }
 
     function stop() {
