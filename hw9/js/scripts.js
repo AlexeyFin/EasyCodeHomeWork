@@ -13,19 +13,18 @@ class VideoPlayer{
     init() {
         //start plugin
         this.events();
+        this.getProp();
     }
 
     events() {
         //all events
         this.video.addEventListener('click', e => this.togglePlay());
         this.toggle.addEventListener('click', e => this.togglePlay());
-        this.ranges.forEach(range => range.addEventListener('change', e => this.handleRangeUpdate(e)));
+        this.ranges.forEach(range => range.addEventListener('change', e => {this.handleRangeUpdate(e); this.saveProp()}));
         this.ranges.forEach(range => range.addEventListener('mousemove', e => this.handleRangeUpdate(e)));
         this.skipButtons.forEach(btn => btn.addEventListener('click', e => this.skip(e)));
-        this.video.addEventListener('timeupdate', e => this.progressMove());
-        this.video.addEventListener('timeupdate', e => this.saveProp());
+        this.video.addEventListener('timeupdate', e => {this.progressMove(); this.saveProp()});
         this.progress.addEventListener('click', e => this.chooseMoment(e));
-        window.onload(this.getProp())
     }
 
     togglePlay() {
