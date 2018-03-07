@@ -110,33 +110,39 @@ function showAlert(settings) {
 form.addEventListener('submit', function (e) {
    e.preventDefault();
 
-   let data = {
-       title: inputText.value,
-       completed: false
-   };
-    ajax.send({
-        method: 'POST',
-        url:'https://jsonplaceholder.typicode.com/todos',
-        data: JSON.stringify(data),
-        headers: {
-            "Content-type": "application/json; charset=UTF-8"
-        },
-        success: function (res) {
-            let response = JSON.parse(res);
-            console.log(response);
-            generateTask(response);
-            showAlert({
-                text: 'Item has been added',
-                cssClass: 'alert-success',
-                timeout: 3000
-            })
+   if (!inputText.value) {
+       inputText.classList.add('is-invalid');
+   } else {
+        let data = {
+            title: inputText.value,
+            completed: false
+        };
+        ajax.send({
+           method: 'POST',
+           url:'https://jsonplaceholder.typicode.com/todos',
+           data: JSON.stringify(data),
+           headers: {
+               "Content-type": "application/json; charset=UTF-8"
+           },
+           success: function (res) {
+               let response = JSON.parse(res);
+               console.log(response);
+               generateTask(response);
+               showAlert({
+                   text: 'Item has been added',
+                   cssClass: 'alert-success',
+                   timeout: 3000
+               })
 
-        },
-        error: function (err) {
-            console.log(err)
-        }
-    });
-    form.reset();
+           },
+           error: function (err) {
+               console.log(err)
+           }
+        });
+        inputText.classList.remove('is-invalid');
+        form.reset();
+   }
+
 });
 ul.addEventListener('click', function (e) {
     let parent = e.target.closest('li');
