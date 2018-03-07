@@ -90,6 +90,7 @@ body {
   background:#ffc600;
   flex:0;
   /*flex-basis:50%;*/
+  transition: all .1s ease-out;
 }
 
 /* unholy css to style input type="range" */

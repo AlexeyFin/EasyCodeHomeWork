@@ -8,6 +8,7 @@ class VideoPlayer{
         this.skipButtons = this.player.querySelectorAll('[data-skip]');
         this.ranges = this.player.querySelectorAll('.player__slider');
         this.properties = JSON.parse(localStorage.getItem('myVideo')) || {currentTime: 0, playbackRate: 1, volume: 1};
+        this.mouseDown = false;
     }
 
     init() {
@@ -25,7 +26,11 @@ class VideoPlayer{
         this.skipButtons.forEach(btn => btn.addEventListener('click', e => this.skip(e)));
         this.video.addEventListener('timeupdate', e => {this.progressMove(); this.saveProp()});
         this.progress.addEventListener('click', e => this.chooseMoment(e));
+        this.progress.addEventListener('mousemove', e=> this.mouseDown && this.chooseMoment(e));
+        this.progress.addEventListener('mousedown', () => this.mouseDown = true);
+        this.progress.addEventListener('mouseup', () => this.mouseDown = false);
     }
+
 
     togglePlay() {
         //play/pause video
@@ -49,8 +54,10 @@ class VideoPlayer{
     }
 
     chooseMoment(e) {
-        let width = parseInt(getComputedStyle(this.progress).width);
-        this.video.currentTime = this.video.duration * e.offsetX / width;
+
+            let width = parseInt(getComputedStyle(this.progress).width);
+            this.video.currentTime = this.video.duration * e.offsetX / width;
+
     }
 
     saveProp() {
