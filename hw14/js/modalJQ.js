@@ -12,14 +12,18 @@
             };
             this.modal = element;
             this.options = $.extend(this.default, options);
-            this.overlay = $('<div class ="overlay"></div>');
+            this.overlay = $('.overlay');
+            if (this.options.autoClose){
+                this.closeTimeOut = setTimeout(() => this.closeModal(this), this.options.autoCloseTime);
+            }
+
         }
 
         init() {
             this.showOverlay();
             this.showModal();
             this.events();
-            this.autoCloseModal();
+            // this.autoCloseModal();
         }
 
         events() {
@@ -27,8 +31,17 @@
             $(`.${this.options.closeClass}`).on('click', (e) => this.closeModal());
         }
 
+        clearEvents () {
+            this.overlay.off('click');
+            $(`.${this.options.closeClass}`).overlay.off('click');
+        }
+
         showOverlay() {
+            if (!this.overlay.length) {
+                this.overlay = $('<div class ="overlay"></div>');
+            }
             // setup style
+
             this.overlay.css({
                 'display' : 'block',
                 'position': 'fixed',
@@ -85,13 +98,16 @@
             }, this.options.duration, () => {
                 this.modal.css({'display': 'none'})
             });
+
+            clearTimeout(this.closeTimeOut);
+            this.clearEvents();
         }
 
-        autoCloseModal() {
-            if (this.options.autoClose) {
-                setTimeout(() => this.closeModal(this), this.options.autoCloseTime);
-            }
-        }
+        // autoCloseModal() {
+        //     if (this.options.autoClose) {
+        //         setTimeout(() => this.closeModal(this), this.options.autoCloseTime);
+        //     }
+        // }
     }
 
     $.fn.easyModal = function (options) {
