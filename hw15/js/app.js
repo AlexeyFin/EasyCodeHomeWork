@@ -43,10 +43,10 @@ const searchInputText = searchForm.elements['searchText'];
 window.addEventListener('load', function (e) {
     let ls = localstorage.getTasks();
     if (ls.length) {
-        ls.forEach(task => {
-            tasks.addTask(task)
-                .then(oneTask => ui.addTask(oneTask));
-        });
+        tasks.setTasks(ls)
+            .then(tasks => {
+                tasks.forEach(task => ui.addTask(task));
+            })
     } else {
         ui.checkList();
     }
@@ -86,10 +86,6 @@ ul.addEventListener('click', function (e) {
        } else {
             ui.editTask(e.target)
                 .then(data => tasks.editTask(data))
-                .then(data => {
-                    console.log(data);
-                    return data
-                })
                 .then(() => editTaskObserver.fire({
                     text: 'Задача обновлена успешно!',
                     class: 'alert alert-success'

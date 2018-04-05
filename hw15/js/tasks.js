@@ -10,7 +10,7 @@ const Tasks = (function () {
         return tasks;
     };
     
-    const setTasks = function (array) {
+    const setTasks = async function (array) {
         tasks = array;
         return tasks;
     };
@@ -42,11 +42,9 @@ const Tasks = (function () {
     };
 
     const searchItems = async function (text) {
-        let data = tasks.filter(task => {
-            return (task.text.indexOf(text) + 1)
-        });
-
-        return data
+         return tasks.filter(task => {
+            return (task.text.toLowerCase().indexOf(text) + 1)
+        })
     };
 
     const createInstance = function () {
