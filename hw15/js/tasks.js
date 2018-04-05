@@ -43,7 +43,7 @@ const Tasks = (function () {
 
     const searchItems = async function (text) {
          return tasks.filter(task => {
-            return (task.text.toLowerCase().indexOf(text) + 1)
+            return (task.text.toLowerCase().indexOf(text.toLowerCase()) + 1)
         })
     };
 
